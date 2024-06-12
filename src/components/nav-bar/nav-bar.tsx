@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 import { IconMenu2 } from "@tabler/icons-react"
 import { useAuthSession } from "@/store/auth_session"
 import useSessionContext from "@/hook/useSession"
-import { get_profile } from "@/actions"
+import { get_profile, log_out } from "@/actions"
 
 
 
@@ -22,6 +22,7 @@ export const NavBar = () => {
     })
     const [menuMain, setMenuMain] = useState(false)
     const [menuUser, setMenuUser] = useState(false)
+
 
     const session = useAuthSession(state => state.session_user)
     const closeSession = useAuthSession(state => state.closeSession)
@@ -66,6 +67,24 @@ export const NavBar = () => {
 
         getProfile()
     }, [session, id])
+
+    const sessionOff = async () => {
+        if (!session) return
+        if (!email) return
+
+        const isTrueConfirm = confirm('¿Estas seguro de cerrar sesión?')
+
+        if (!isTrueConfirm) return
+
+        const logout = await log_out(email, session)
+        if (logout.ok) {
+            closeSession()
+            closeSessionAuthContext()
+            router.refresh()
+        } else {
+            return null
+        }
+    }
 
 
     return (
@@ -201,7 +220,7 @@ export const NavBar = () => {
                             }>
                                 <button
                                     type="button"
-                                    onClick={() => [closeSession(), closeSessionAuthContext(), router.refresh()]}
+                                    onClick={sessionOff}
                                     className="block text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full"
                                 >
                                     Cerrar Sesión

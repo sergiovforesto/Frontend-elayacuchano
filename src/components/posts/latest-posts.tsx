@@ -6,20 +6,14 @@ import { get_all_posts } from '@/actions';
 
 
 
-// interface Props {
-//     posts: Posts[]
-//     setPage?: (num: number) => void
-// }
-
 export default function LatestPosts() {
 
 
     const [posts, setPosts] = useState<Posts[]>([])
     const [page, setPage] = useState<number>(1)
     const [totalPost, setTotalPosts] = useState<number>(0)
-
-
     const pageLimit = 6;
+
 
     useEffect(() => {
 
@@ -52,9 +46,9 @@ export default function LatestPosts() {
 
 
     return (
+
         <PostsList
             posts={posts}
-            setPosts={setPosts}
             totalPosts={totalPost}
             page={page}
             setPage={setPage}

@@ -1,19 +1,23 @@
 'use client'
-
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { ErrorsForms } from '@/interfaces';
-import { publish_post } from '@/actions';
-import { useAuthSession } from '@/store/auth_session';
-import { IconCloudUpload } from '@tabler/icons-react';
-import Image from 'next/image';
-import clsx from 'clsx';
-import { ToastContainer, toast } from 'react-toastify';
+import { useState } from "react"
+import Image from "next/image"
+import clsx from "clsx"
+import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
+import { ErrorsForms } from "@/interfaces"
+import { useRouter } from "next/navigation"
+import { useAuthSession } from "@/store/auth_session"
+import { IconCloudUpload } from "@tabler/icons-react"
+import { update_post } from "@/actions"
 
-export const CreatePostUI = () => {
 
+interface Props {
+    postId: string;
+}
 
+export const UpdatePost = ({ postId }: Props) => {
+
+    const router = useRouter()
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
@@ -22,26 +26,16 @@ export const CreatePostUI = () => {
 
     const [errors, setErrors] = useState<ErrorsForms>({ message: '', err: false, fields: '' })
     const [success, setSuccess] = useState('')
+
     const [loading, setLoding] = useState(false)
 
-    const router = useRouter()
     const session = useAuthSession(state => state.session_user)
-    const notify = () => toast.success("Post Creado!!");
+    const notify = (msg: string) => toast.success(msg);
 
 
-
-    useEffect(() => {
-
-        if (!session) {
-            router.replace('/')
-            return
-        }
-    }, [session, router])
 
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-
         if (e.target.files) {
             const files = e.target.files
 
@@ -59,10 +53,14 @@ export const CreatePostUI = () => {
     };
 
 
-    const onSubmitPost = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
 
-        setLoding(true)
+    const onUpdatePost = async () => {
+
+        setLoding(true);
+        if (!session) {
+            setLoding(false);
+            return;
+        }
 
         if ([title, description].includes('')) {
             setErrors({ message: 'Campos requeridos', err: true })
@@ -79,30 +77,34 @@ export const CreatePostUI = () => {
             }
         }
 
-
-
-        const posted = await publish_post(session, formdata)
-        if (!posted.ok) {
-            setErrors({ message: posted.msg, err: true })
+        const my_new_post = await update_post(session, postId, formdata)
+        if (!my_new_post.ok) {
+            setErrors({ message: my_new_post.msg, err: true })
             return
         }
-        setSuccess('Post Creado.')
-        notify()
+
+        setSuccess('Post Actualizado.')
+        notify('Actualizado Correctamente')
+
 
         setTimeout(() => {
             router.replace('/')
         }, 3000);
 
+
         setLoding(false)
+
+
     }
 
 
-    const { message, fields } = errors
+    const { message, err } = errors
 
     return (
+
         <>
-            <form onSubmit={onSubmitPost} className="space-y-5 py-5">
-                <h1 className='text-gray-900 font-extrabold text-xl md:text-2xl underline'>Crear Post</h1>
+            <div className="space-y-5 py-5">
+                <h1 className='text-gray-900 font-extrabold text-xl md:text-2xl underline'>Actualizar Post</h1>
 
                 <div>
                     <h2 className="font-bold sm:text-lg text-gray-800 mb-2">Subir Imagenes (opcional)</h2>
@@ -144,7 +146,9 @@ export const CreatePostUI = () => {
                             }
 
                         </div>
+
                     </div>
+
 
 
                 </div>
@@ -173,11 +177,12 @@ export const CreatePostUI = () => {
 
                     </textarea>
                 </div>
-                {fields === '' ? <p className="text-xs text-rose-600 font-light">{message}</p> : ''}
+                {err ? <p className="text-xs text-rose-600 font-light">{message}</p> : ''}
 
 
                 <button
-                    type="submit"
+                    type="button"
+                    onClick={onUpdatePost}
                     disabled={loading}
                     className={
                         clsx(
@@ -186,7 +191,7 @@ export const CreatePostUI = () => {
                         )
                     }
                 >
-                    <span>Publicar post</span>
+                    <span>Actualizar post</span>
                     <Image
                         src={'/mini-spinner.svg'}
                         width={20} height={20}
@@ -194,7 +199,7 @@ export const CreatePostUI = () => {
                         hidden={!loading}
                     />
                 </button>
-            </form>
+            </div>
 
 
             <ToastContainer />

@@ -2,6 +2,7 @@ import { titleAyacuchano } from "@/fonts/fonts";
 import Link from "next/link";
 import { CreatePostUI } from "./ui/create-post-ui";
 import { Metadata } from "next";
+import { NavBar } from "@/components";
 
 
 export const metadata: Metadata = {
@@ -13,17 +14,20 @@ export default function CreatePost() {
 
 
     return (
-        <main className="md:mx-20 xl:mx-32 relative">
-            <nav className="my-5 space-x-4">
-                <Link href="/" className="flex items-center justify-center space-x-3">
-                    <span className={`${titleAyacuchano.className} font-semibold text-xl`}>El Ayacuchano</span>
-                </Link>
+        <>
+            <div className="sticky top-0 z-10">
+                <div >
+                    <NavBar />
+                </div>
+            </div>
 
-            </nav>
-
-            <CreatePostUI />
+            <main className="md:mx-20 xl:mx-32 mt-3 relative">
 
 
-        </main>
+                <CreatePostUI />
+
+
+            </main>
+        </>
     )
 }

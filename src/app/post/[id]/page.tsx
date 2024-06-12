@@ -8,6 +8,9 @@ import { IconMoodEmpty } from "@tabler/icons-react";
 import { Comment, Posts } from "@/interfaces";
 import { FormComment } from "../ui/create-comment";
 import LikeButtonPost from "../ui/like-post";
+import { EditButton } from '@/components/buttons/button-edit/edit-button';
+
+
 
 interface Props {
     params: {
@@ -51,7 +54,7 @@ export default async function PostId({ params }: Props) {
     if (!ok) {
         notFound()
     }
-    const { author } = post
+    const { author, authorId } = post
     const { comments, commentCount } = await get_comments_by_post(post.id)
 
 
@@ -98,6 +101,11 @@ export default async function PostId({ params }: Props) {
                                 <span className="text-sm md:text-base font-semibold text-neutral-700">{author.name} {author.lastName}</span>
                                 <span className="text-[11px] md:text-xs font-light">{obtenerMes(post.createdAt)}  ({formatTime(post.createdAt)})</span>
                             </div>
+
+
+                            {/**Boton Editar */}
+                            <EditButton postId={post.id} authorId={authorId} />
+
                         </div>
 
 

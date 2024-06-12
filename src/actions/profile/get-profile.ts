@@ -7,7 +7,6 @@ export const get_profile = async (token: string, id: string) => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        cache: 'no-store'
 
 
     })

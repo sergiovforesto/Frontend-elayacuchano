@@ -9,6 +9,7 @@ export interface User {
     token?: string;
     isAuth?: boolean;
     isActive?: boolean;
+    inSession?: boolean;
     createdAt?: Date;
     updatedAt?: Date;
 }

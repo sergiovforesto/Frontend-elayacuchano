@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 export default async function Profile() {
 
     return (
-
         <div className="flex flex-col gap-y-7 items-center py-5 relative">
             <div className="mt-5">
                 <Link href={'/'} className="flex items-center space-x-3">

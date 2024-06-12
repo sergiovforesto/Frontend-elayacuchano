@@ -1,10 +1,14 @@
 'use client'
+import '@/app/styles/spinner.css'
 import { useState, useRef, useEffect } from "react";
 import { Posts } from "@/interfaces";
 import { obtenerMes, formatTime } from "@/utils";
 import Link from "next/link";
 import Image from "next/image";
 import LikeCommentsButtons from "./like-comments-buttons";
+
+
+
 interface ImageObject {
     id: string;
     url: string;
@@ -12,16 +16,15 @@ interface ImageObject {
 }
 interface Props {
     posts: Posts[];
-    setPosts?: (post: Posts[]) => void
     totalPosts?: number
     page?: number;
     setPage?: (update: (prevPage: number) => number) => void;
 }
 
-export const PostsList = ({ posts, setPosts = (post: Posts[]) => { }, totalPosts = 0, page = 1, setPage = (update: (prevPage: number) => number) => { } }: Props) => {
+export const PostsList = ({ posts, totalPosts = 0, page = 1, setPage = (update: (prevPage: number) => number) => { } }: Props) => {
     const articleRef = useRef<HTMLElement | null>(null);
     const [postInView, setPostInView] = useState<boolean | undefined>(undefined)
-    const [isLoading, setIsLoading] = useState(false); // Estado para controlar la carga
+    const [isLoading, setIsLoading] = useState(true); // Estado para controlar la carga
 
 
     useEffect(() => {
@@ -64,7 +67,7 @@ export const PostsList = ({ posts, setPosts = (post: Posts[]) => { }, totalPosts
         <>
             {posts.map((post: Posts) => (
 
-                <article id='id-article' ref={articleRef} key={post.id} className="rounded-md bg-white border" >
+                <article id='id-article' ref={articleRef} key={post.id} className="rounded-lg bg-white border" >
 
                     {
                         post.Images?.length === 0 ? (
@@ -72,12 +75,12 @@ export const PostsList = ({ posts, setPosts = (post: Posts[]) => { }, totalPosts
                         ) : (
                             post.Images?.map((img: ImageObject) => (
 
-                                <div className="h-[400px] bg-neutral-950" key={img.id}>
+                                <div className="h-[400px] bg-neutral-950 rounded-t-lg" key={img.id}>
                                     <Image
                                         src={img.url}
                                         width={400}
                                         height={300}
-                                        className={'w-full h-[400px] rounded-t-md object-contain'}
+                                        className={'w-full h-[400px] rounded-t-lg object-contain'}
                                         alt={img.postId}
                                     />
                                 </div>
@@ -133,8 +136,29 @@ export const PostsList = ({ posts, setPosts = (post: Posts[]) => { }, totalPosts
                         </div>
                     </div >
                 </article >
+
+
+
             )
             )}
+            {
+                isLoading && (
+                    <div className='flex justify-center items-center h-screen'>
+                        <div className="sk-cube-grid">
+                            <div className="sk-cube sk-cube1"></div>
+                            <div className="sk-cube sk-cube2"></div>
+                            <div className="sk-cube sk-cube3"></div>
+                            <div className="sk-cube sk-cube4"></div>
+                            <div className="sk-cube sk-cube5"></div>
+                            <div className="sk-cube sk-cube6"></div>
+                            <div className="sk-cube sk-cube7"></div>
+                            <div className="sk-cube sk-cube8"></div>
+                            <div className="sk-cube sk-cube9"></div>
+                        </div>
+                    </div>
+                )
+            }
+
 
         </>
     )

@@ -28,12 +28,12 @@ export const SideBar = () => {
                         </Link>
                     </li>
 
-                    <li>
+                    {/* <li>
                         <Link href={'/tags'} className="flex items-center py-2 px-4 rounded-lg hover:underline hover:bg-indigo-100 hover:text-indigo-700">
                             <IconTag size={24} className="mx-2" />
                             Tags
                         </Link>
-                    </li>
+                    </li> */}
 
                     <li>
                         <Link href={'/culture'} className="flex items-center py-2 px-4 rounded-lg hover:underline hover:bg-indigo-100 hover:text-indigo-700">

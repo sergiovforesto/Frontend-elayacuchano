@@ -30,12 +30,16 @@ export default function LikeButtonPost({ postId, postlikes }: Props) {
     const handleLike = async () => {
 
         const like: number = 1
+        if (!session) {
+            alert('Inicia Sesión / Registrate para reaccionar')
+            return
+        }
+
         const new_like = await create_like(session, like, postId)
         if (!new_like.ok) {
             setErrors({ message: new_like.msg, err: true, fields: '' })
             return
         }
-
         router.refresh()
     }
     const totalLikesForPost = getTotalLikesForPost(postlikes, postId);
