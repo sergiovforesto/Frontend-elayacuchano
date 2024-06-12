@@ -61,7 +61,7 @@ export default async function PostId({ params }: Props) {
     return (
 
 
-        <div className="sm:flex justify-center mt-7 mb-7">
+        <div className="sm:flex justify-center mt-7 mb-7 ">
             <div className="rounded-md bg-white border max-w-[672px] w-full">
                 {
                     post?.Images.length === 0 ? (
@@ -83,8 +83,10 @@ export default async function PostId({ params }: Props) {
 
 
                 <section className="">
-                    <div className="p-3 sm:py-8 sm:px-12">
-                        <div className="flex items-center space-x-2 mb-6">
+                    <div className="p-3 sm:py-8 sm:px-12 ">
+                        <div className="flex items-center gap-x-2 mb-6 ">
+
+
                             <div className="relative">
                                 <Image
                                     className="w-9 md:w-10 h-9 md:h-10 rounded-full"

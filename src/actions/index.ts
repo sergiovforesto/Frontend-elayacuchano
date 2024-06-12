@@ -20,6 +20,7 @@ export { publish_post } from './posts/create-post'
 export { update_post } from './posts/update-post-id'
 export { get_post_id } from './posts/get-post-id'
 export { get_summary_stats } from './posts/get-summary-stats'
+export { delete_post_id } from './posts/delete-post'
 
 //COMMENTS
 export { get_comments_by_post } from './comments/get_comments_by_post'

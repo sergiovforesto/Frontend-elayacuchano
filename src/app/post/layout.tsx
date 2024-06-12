@@ -6,7 +6,7 @@ export default function PostLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div>
+        <div className="">
             <div className="sticky top-0 z-10">
                 <div >
                     <NavBar />

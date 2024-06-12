@@ -53,5 +53,8 @@ export default function LatestPosts() {
             page={page}
             setPage={setPage}
         />
+
+
+
     )
 }
