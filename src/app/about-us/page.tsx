@@ -46,7 +46,7 @@ export default function AboutUs() {
                                         <p className="font-bold italic text-gray-900 md:text-xl">Editor y Fundador Nelson Ventura</p>
                                         <p className="font-semibold italic text-sm md:text-base text-gray-600">Fundado el 15 de mayo de 2016 en Puerto Ayacucho</p>
 
-                                        <p className="font-light mt-1 italic text-sm md:text-base text-gray-900">"La verdad por cualquier lado"</p>
+                                        <p className="font-light mt-1 italic text-sm md:text-base text-gray-900">La verdad por cualquier lado</p>
 
                                     </div>
 
