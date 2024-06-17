@@ -2,6 +2,7 @@ import { titleAyacuchano } from "@/fonts/fonts";
 import Link from "next/link";
 import { ProfileUI } from "./ui/profile-ui";
 import { Metadata } from "next";
+import { Footer } from "@/components";
 
 
 export const metadata: Metadata = {
@@ -21,11 +22,7 @@ export default async function Profile() {
 
             <ProfileUI />
 
-            <footer className="mt-auto text-center py-5">
-                <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-                    <p className="text-sm text-gray-500">© El ayacuchano. {new Date().getFullYear()}</p>
-                </div>
-            </footer>
+            <Footer />
         </div>
 
 

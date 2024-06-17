@@ -35,19 +35,7 @@ export const SideBar = () => {
                         </Link>
                     </li> */}
 
-                    <li>
-                        <Link href={'/culture'} className="flex items-center py-2 px-4 rounded-lg hover:underline hover:bg-indigo-100 hover:text-indigo-700">
-                            <IconMenorah size={24} className="mx-2" />
-                            Cultura
-                        </Link>
-                    </li>
 
-                    {/* <li>
-                    <Link href={'/'} className="flex items-center py-2 px-4 rounded-lg hover:underline hover:bg-indigo-100 hover:text-indigo-700">
-                        <IconSunrise size={24} className="mx-2" />
-                        Turismo
-                    </Link>
-                </li> */}
                 </ul>
             </div>
 

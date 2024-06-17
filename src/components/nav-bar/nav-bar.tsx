@@ -35,8 +35,7 @@ export const NavBar = () => {
         { id: 1, title: "Inicio", href: '/' },
         { id: 2, title: "Nosotros", href: '/about' },
         { id: 3, title: "Contacto", href: '/contact' },
-        { id: 4, title: "Tags", href: '/tags' },
-        { id: 5, title: "Cultura", href: '/culture' },
+
     ]
 
     const user_menu = [
