@@ -82,7 +82,7 @@ export default function AboutUs() {
 
                     <Footer />
                 </div>
-                {/* antes: hidden sm:block border" */}
+
                 <div className="hidden">
                     sidebar
                 </div>
