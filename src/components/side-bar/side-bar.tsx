@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IconAddressBook, IconHome, IconMenorah, IconMoodPuzzled, IconSunrise, IconTag } from "@tabler/icons-react";
+import { IconAddressBook, IconHome, IconMoodPuzzled } from "@tabler/icons-react";
 
 export const SideBar = () => {
 
