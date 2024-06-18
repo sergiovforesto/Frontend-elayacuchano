@@ -33,7 +33,7 @@ export const NavBar = () => {
     const main_menu = [
 
         { id: 1, title: "Inicio", href: '/' },
-        { id: 2, title: "Nosotros", href: '/about' },
+        { id: 2, title: "Nosotros", href: '/about-us' },
         { id: 3, title: "Contacto", href: '/contact' },
 
     ]
