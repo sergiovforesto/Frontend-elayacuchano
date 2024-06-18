@@ -18,7 +18,7 @@ export default function AboutUs() {
                 </div>
             </header>
 
-            <div className="flex gap-x-4 pt-10">
+            <div className="my-0 mx-auto grid sm:grid-cols-[240px_1fr] lg:grid-cols-[240px_2fr_240px] gap-x-4 pt-10 max-w-[1280px]">
 
                 <div className='hidden sm:block max-w-[240px] w-full'>
                     <SideBar />
@@ -26,9 +26,9 @@ export default function AboutUs() {
 
 
                 <div>
-                    <div className="flex flex-col gap-y-7 items-center py-5">
+                    <div className="flex flex-col gap-y-7 items-center py-5 max-w-[672px] w-full">
 
-                        <div className="bg-white border rounded-md px-7 py-10 max-w-[672px] w-full">
+                        <div className="bg-white border rounded-md px-7 py-10 ">
                             <h2 className="font-bold text-3xl text-neutral-900">Nosotros</h2>
 
                             <div className="mt-7">
@@ -36,10 +36,10 @@ export default function AboutUs() {
                                 <header className="flex flex-col sm:flex-row gap-y-4 sm:gap-y-0 sm:gap-x-4  items-center">
                                     <Image
                                         src={'/nelson-nosotros.jpg'}
-                                        width={300}
-                                        height={300}
+                                        width={150}
+                                        height={150}
                                         alt="Nelson photo"
-                                        className="border border-gray-300 h-[200px] w-[200px] rounded-full object-cover"
+                                        className="border border-gray-300 h-[150px] w-[150px] rounded-full object-cover"
                                     />
 
                                     <div className="text-center sm:text-left">
