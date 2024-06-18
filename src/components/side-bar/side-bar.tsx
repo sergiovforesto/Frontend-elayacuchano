@@ -5,7 +5,7 @@ export const SideBar = () => {
 
     return (
         <>
-            <div className="hidden sm:block text-gray-700 ">
+            <div className="hidden sm:block text-gray-700">
                 <ul>
                     <li>
                         <Link href={'/'} className="flex items-center py-2 px-4 rounded-lg hover:underline hover:bg-indigo-100 hover:text-indigo-700">

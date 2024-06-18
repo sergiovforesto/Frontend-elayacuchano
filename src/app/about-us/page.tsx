@@ -18,9 +18,9 @@ export default function AboutUs() {
                 </div>
             </header>
 
-            <div className="container gap-x-4 pt-10">
+            <div className="flex gap-x-4 pt-10">
 
-                <div>
+                <div className='hidden sm:block max-w-[240px] w-full'>
                     <SideBar />
                 </div>
 
@@ -29,11 +29,11 @@ export default function AboutUs() {
                     <div className="flex flex-col gap-y-7 items-center py-5">
 
                         <div className="bg-white border rounded-md px-7 py-10 max-w-[672px] w-full">
-                            <h2 className="font-bold text-4xl text-neutral-900">Nosotros</h2>
+                            <h2 className="font-bold text-3xl text-neutral-900">Nosotros</h2>
 
                             <div className="mt-7">
 
-                                <header className="flex gap-x-3 items-center">
+                                <header className="flex flex-col sm:flex-row gap-y-4 sm:gap-y-0 sm:gap-x-4  items-center">
                                     <Image
                                         src={'/nelson-nosotros.jpg'}
                                         width={300}
@@ -42,11 +42,11 @@ export default function AboutUs() {
                                         className="border border-gray-300 h-[200px] w-[200px] rounded-full object-cover"
                                     />
 
-                                    <div>
-                                        <p className="font-bold italic text-gray-900 md:text-xl">Editor y Fundador Nelson Ventura</p>
+                                    <div className="text-center sm:text-left">
+                                        <p className="font-bold text-gray-900 md:text-xl">Editor y Fundador Nelson Ventura</p>
                                         <p className="font-semibold italic text-sm md:text-base text-gray-600">Fundado el 15 de mayo de 2016 en Puerto Ayacucho</p>
 
-                                        <p className="font-light mt-1 italic text-sm md:text-base text-gray-900">La verdad por cualquier lado</p>
+                                        <p className="font-light mt-1 italic text-sm md:text-base text-gray-600">"La verdad por cualquier lado"</p>
 
                                     </div>
 

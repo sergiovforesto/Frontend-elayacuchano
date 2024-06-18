@@ -30,7 +30,7 @@ export default function Contact() {
                     <div className="flex flex-col gap-y-7 items-center py-5">
 
                         <div className="bg-white border rounded-md px-7 py-10 max-w-[672px] w-full">
-                            <h2 className="font-bold text-4xl text-neutral-900">Contacto</h2>
+                            <h2 className="font-bold text-3xl text-neutral-900">Contacto</h2>
 
 
 

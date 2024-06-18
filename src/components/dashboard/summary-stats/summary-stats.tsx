@@ -43,22 +43,22 @@ export const SummaryStats = () => {
                 <div className="grid grid-rows-3 gap-y-3 md:grid-rows-1 md:grid-cols-3 md:gap-y-0 gap-x-3 mt-5 animate-pulse">
                     <div className="border rounded-xl px-4 py-3">
                         <div>
-                            <p className="bg-gray-200 p-4 w-full rounded-full"></p>
-                            <span className="bg-gray-200 p-3 block w-2/6 rounded-full mt-2"></span>
+                            <p className="bg-slate-200 p-4 w-full rounded-full"></p>
+                            <span className="bg-slate-200 p-3 block w-2/6 rounded-full mt-2"></span>
                         </div>
                     </div>
 
                     <div className="border rounded-xl px-4 py-3">
                         <div>
-                            <p className="bg-gray-200 p-4 w-full rounded-full"></p>
-                            <span className="bg-gray-200 p-3 block w-2/6 rounded-full mt-2"></span>
+                            <p className="bg-slate-200 p-4 w-full rounded-full"></p>
+                            <span className="bg-slate-200 p-3 block w-2/6 rounded-full mt-2"></span>
                         </div>
                     </div>
 
                     <div className="border rounded-xl px-4 py-3">
                         <div>
-                            <p className="bg-gray-200 p-4 w-full rounded-full"></p>
-                            <span className="bg-gray-200 p-3 block w-2/6 rounded-full mt-2"></span>
+                            <p className="bg-slate-200 p-4 w-full rounded-full"></p>
+                            <span className="bg-slate-200 p-3 block w-2/6 rounded-full mt-2"></span>
                         </div>
                     </div>
                 </div>

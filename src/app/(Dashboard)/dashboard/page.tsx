@@ -24,6 +24,7 @@ export default function Dashboard({ searchParams }: Props) {
                         Tus Posts
                     </h2>
                 </div>
+
                 <Suspense fallback={<p>LOADING..........</p>}>
                     <PostTable searchParams={searchParams} />
                 </Suspense>

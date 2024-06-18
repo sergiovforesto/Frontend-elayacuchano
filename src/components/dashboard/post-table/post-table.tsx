@@ -66,17 +66,30 @@ export const PostTable = ({ searchParams }: Props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        data.map((post) => (
 
-                            <RowPostTable
-                                key={post.id}
-                                postId={post.id}
-                                title={post.title}
-                                description={post.description.split(' ')[0]}
-                                createdAt={obtenerMes(post.createdAt)}
-                            />
-                        ))
+
+                    {
+                        data.length > 0 ? (
+                            data.map((post) => (
+
+                                <RowPostTable
+                                    key={post.id}
+                                    postId={post.id}
+                                    title={post.title}
+                                    description={post.description.split(' ')[0]}
+                                    createdAt={obtenerMes(post.createdAt)}
+                                />
+                            ))
+                        ) : (
+                            <tr className="bg-white border-b">
+
+                                <th className="px-6 py-4 font-medium whitespace-nowrap text-gray-900">
+                                    No hay ningun post publicado
+                                </th>
+
+
+                            </tr>
+                        )
                     }
 
                 </tbody>

@@ -1,6 +1,6 @@
 'use client'
 import '@/app/styles/spinner.css'
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { Posts } from "@/interfaces";
 import { obtenerMes, formatTime } from "@/utils";
 import Link from "next/link";
@@ -18,13 +18,17 @@ interface Props {
     posts: Posts[];
     totalPosts?: number
     page?: number;
+    isLoading?: boolean;
     setPage?: (update: (prevPage: number) => number) => void;
+    setIsLoading?: (isLoading: boolean) => void;
 }
 
-export const PostsList = ({ posts, totalPosts = 0, page = 1, setPage = (update: (prevPage: number) => number) => { } }: Props) => {
+export const PostsList = ({
+    posts, totalPosts = 0, page = 1, setPage = (update: (prevPage: number) => number) => { },
+    isLoading, setIsLoading = (isLoading: boolean) => { }
+}: Props) => {
+
     const articleRef = useRef<HTMLElement | null>(null);
-    const [postInView, setPostInView] = useState<boolean | undefined>(undefined)
-    const [isLoading, setIsLoading] = useState(true)
 
 
     useEffect(() => {
@@ -56,102 +60,11 @@ export const PostsList = ({ posts, totalPosts = 0, page = 1, setPage = (update: 
     }, [posts, page, totalPosts, isLoading])
 
 
-    useEffect(() => {
 
-        if (posts.length === 0) {
-            setIsLoading(false);
-            return
-        }
-
-        if (posts.length && isLoading) {
-            setIsLoading(false);
-        }
-    }, [posts]);
 
 
     return (
         <>
-            {posts.length === 0 && (
-                <div className={`${isLoading ? 'hidden' : 'bg-white p-5 rounded-lg flex items-center justify-center max-h-[200px] h-full'} `}>
-                    <h3>No hay publicaciones 😥</h3>
-                </div>
-            )}
-            {posts.map((post: Posts) => (
-                <article id='id-article' ref={articleRef} key={post.id} className="rounded-lg bg-white border" >
-
-                    {
-                        post.Images?.length === 0 ? (
-                            null
-                        ) : (
-                            post.Images?.map((img: ImageObject) => (
-
-                                <div className="h-[400px] bg-neutral-950 rounded-t-lg" key={img.id}>
-                                    <Image
-                                        src={img.url}
-                                        width={400}
-                                        height={300}
-                                        className={'w-full h-[400px] rounded-t-lg object-contain'}
-                                        alt={img.postId}
-                                    />
-                                </div>
-                            )) ?? []
-                        )
-                    }
-
-
-                    <div className="p-5" >
-
-                        <div className="flex items-center space-x-2 mb-3">
-                            <div className="relative">
-                                <Image
-                                    className="w-9 h-9 rounded-full"
-                                    width={30}
-                                    height={30}
-                                    src={post.author?.Profile?.image ? post.author?.Profile?.image : '/img-user-default.jpg'}
-                                    alt="img"
-                                    unoptimized
-                                />
-
-                                <span className="bottom-0 left-7 absolute  w-2.5 h-2.5 bg-green-400 border-2 border-white rounded-full"></span>
-                            </div>
-
-
-                            <div className="flex flex-col justify-center">
-                                <span className="text-sm font-semibold text-gray-700">{post.authorName}</span>
-                                <span className="text-[11px] font-light">{obtenerMes(post.createdAt)}  ({formatTime(post.createdAt)})</span>
-                            </div>
-                        </div>
-
-
-                        <div className="md:pl-11">
-                            <Link href={`/post/${post.id}`}>
-                                <h2 className="text-xl sm:text-3xl font-bold text-neutral-900 first-letter:uppercase hover:text-blue-800 hover:underline">
-                                    {post.title}
-                                </h2>
-                            </Link>
-                            {/**TAGS */}
-                            {/* <div className="flex flex-wrap gap-2 sm:gap-0 sm:flex-row sm:space-x-3 mt-3">
-
-                                <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800">#Badge</span>
-                                <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-50 text-gray-500">#Badge</span>
-                                <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 ">#Badge</span>
-                                <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800">#Badge</span>
-                            </div> */}
-
-                            <LikeCommentsButtons
-                                postId={post.id}
-                                Likes={post.Likes ?? []}
-                                totalComments={post.totalComments || 0}
-                            />
-                        </div>
-                    </div >
-                </article >
-
-
-
-            )
-            )}
-
 
             {
                 isLoading && (
@@ -171,6 +84,83 @@ export const PostsList = ({ posts, totalPosts = 0, page = 1, setPage = (update: 
                 )
             }
 
+            {posts.length > 0 ? (
+
+                posts.map((post: Posts) => (
+                    <article id='id-article' ref={articleRef} key={post.id} className="rounded-lg bg-white border" >
+
+                        {
+                            post.Images?.length === 0 ? (
+                                null
+                            ) : (
+                                post.Images?.map((img: ImageObject) => (
+
+                                    <div className="h-[400px] bg-neutral-950 rounded-t-lg" key={img.id}>
+                                        <Image
+                                            src={img.url}
+                                            width={400}
+                                            height={300}
+                                            className={'w-full h-[400px] rounded-t-lg object-contain'}
+                                            alt={img.postId}
+                                        />
+                                    </div>
+                                )) ?? []
+                            )
+                        }
+
+
+                        <div className="p-5" >
+
+                            <div className="flex items-center space-x-2 mb-3">
+                                <div className="relative">
+                                    <Image
+                                        className="w-9 h-9 rounded-full"
+                                        width={30}
+                                        height={30}
+                                        src={post.author?.Profile?.image ? post.author?.Profile?.image : '/img-user-default.jpg'}
+                                        alt="img"
+                                        unoptimized
+                                    />
+
+                                    <span className="bottom-0 left-7 absolute  w-2.5 h-2.5 bg-green-400 border-2 border-white rounded-full"></span>
+                                </div>
+
+
+                                <div className="flex flex-col justify-center">
+                                    <span className="text-sm font-semibold text-gray-700">{post.authorName}</span>
+                                    <span className="text-[11px] font-light">{obtenerMes(post.createdAt)}  ({formatTime(post.createdAt)})</span>
+                                </div>
+                            </div>
+
+
+                            <div className="md:pl-11">
+                                <Link href={`/post/${post.id}`}>
+                                    <h2 className="text-xl sm:text-3xl font-bold text-neutral-900 first-letter:uppercase hover:text-blue-800 hover:underline">
+                                        {post.title}
+                                    </h2>
+                                </Link>
+
+
+                                <LikeCommentsButtons
+                                    postId={post.id}
+                                    Likes={post.Likes ?? []}
+                                    totalComments={post.totalComments || 0}
+                                />
+                            </div>
+                        </div >
+                    </article >
+
+
+
+                )
+                )
+            ) : (
+                <div className='bg-white p-5 h-[150px] flex justify-center items-center w-full rounded-md font-medium text-xl text-gray-900'>
+
+                    <h3>No hay publicaciones</h3>😥
+                </div>
+            )
+            }
 
         </>
     )

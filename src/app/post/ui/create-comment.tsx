@@ -8,6 +8,8 @@ import clsx from "clsx"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import useSessionContext from "@/hook/useSession"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
     postId: string;
@@ -21,11 +23,14 @@ export const FormComment = ({ postId }: Props) => {
         image: ''
     })
 
+    const [loading, setLoding] = useState(false)
+
 
 
     const router = useRouter()
     const { id } = useSessionContext()
     const session = useAuthSession(state => state.session_user)
+    const notify = (msg: string) => toast.success(msg);
 
 
 
@@ -54,6 +59,8 @@ export const FormComment = ({ postId }: Props) => {
     const onSubmitComment = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
+        setLoding(true)
+
         if (content === '') {
             setErrors({ message: 'Debes escribir un comentario', err: true, fields: '' })
             return
@@ -71,7 +78,11 @@ export const FormComment = ({ postId }: Props) => {
             setErrors({ message: comment.msg, err: true, fields: '' })
             return
         }
+        setTimeout(() => {
+            notify('Creado exitosamente!')
+        }, 2000);
         setContent('')
+        setLoding(false)
         router.refresh()
 
     }
@@ -80,50 +91,67 @@ export const FormComment = ({ postId }: Props) => {
     const { message, fields } = errors
 
     return (
-        <div className="flex space-x-3 w-full mt-6">
-            <div>
-                <Image
-                    src={profile.image ? profile.image : '/img-user-default.jpg'}
-                    width={30}
-                    height={30}
-                    alt="image"
-                    className="w-9 h-8 rounded-full"
-                    unoptimized
-                />
-            </div>
-
-
-            <div className="w-full">
-
-                <form onSubmit={onSubmitComment} className={
-                    clsx(
-                        "border border-gray-300 focus-within:outline outline-1 outline-indigo-600 rounded-lg w-full",
-                        {
-                            'outline-rose-600 border-rose-600': errors.err
-                        }
-                    )
-                }>
-                    <textarea
-                        rows={2}
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        placeholder="Escribe un comentario..."
-                        className="resize-none rounded-lg w-full outline-none p-3"
+        <>
+            <div className="flex space-x-3 w-full mt-6">
+                <div>
+                    <Image
+                        src={profile.image ? profile.image : '/img-user-default.jpg'}
+                        width={30}
+                        height={30}
+                        alt="image"
+                        className="w-9 h-8 rounded-full"
+                        unoptimized
                     />
+                </div>
 
 
-                    <div className="flex justify-end px-3 py-2 border-t rounded-b-lg">
-                        <button
-                            type="submit"
-                            className="text-white border bg-indigo-600 hover:bg-indigo-700 font-medium rounded-lg text-sm px-4 py-2 text-center"
-                        >
-                            Comentar
-                        </button>
-                    </div>
-                </form>
-                {fields === '' ? <p className="text-xs text-rose-600 font-light mt-1">{message}</p> : ''}
+                <div className="w-full">
 
+                    <form onSubmit={onSubmitComment} className={
+                        clsx(
+                            "border border-gray-300 focus-within:outline outline-1 outline-indigo-600 rounded-lg w-full",
+                            {
+                                'outline-rose-600 border-rose-600': errors.err
+                            }
+                        )
+                    }>
+                        <textarea
+                            rows={2}
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            placeholder="Escribe un comentario..."
+                            className="resize-none rounded-lg w-full outline-none p-3"
+                        />
+
+
+                        <div className="flex justify-end px-3 py-2 border-t rounded-b-lg">
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className={
+                                    clsx(
+                                        "inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 cursor-pointer",
+                                        { 'cursor-not-allowed space-x-2': loading }
+                                    )
+                                }
+                            >
+                                <span>Comentar</span>
+                                <Image
+                                    src={'/mini-spinner.svg'}
+                                    width={20} height={20}
+                                    alt='spinner'
+                                    hidden={!loading}
+                                />
+                            </button>
+                        </div>
+                    </form>
+                    {fields === '' ? <p className="text-xs text-rose-600 font-light mt-1">{message}</p> : ''}
+
+                </div>
             </div>
-        </div>
+
+
+            <ToastContainer />
+        </>
     )
 }
