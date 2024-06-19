@@ -64,35 +64,42 @@ export const UpdatePost = ({ postId }: Props) => {
 
         if ([title, description].includes('')) {
             setErrors({ message: 'Campos requeridos', err: true })
+            setLoding(false)
             return
         }
 
-        const formdata = new FormData();
-        formdata.append('title', title);
-        formdata.append('description', description);
+        try {
 
-        if (images) {
-            for (let i = 0; i < images.length; i++) {
-                formdata.append('images', images[i]);
+            const formdata = new FormData();
+            formdata.append('title', title);
+            formdata.append('description', description);
+
+            if (images) {
+                for (let i = 0; i < images.length; i++) {
+                    formdata.append('images', images[i]);
+                }
             }
+
+            const my_new_post = await update_post(session, postId, formdata)
+            if (!my_new_post.ok) {
+                setErrors({ message: my_new_post.msg, err: true })
+                return
+            }
+
+            setSuccess('Post Actualizado.')
+            notify('Actualizado Correctamente')
+
+
+            setTimeout(() => {
+                router.replace('/')
+            }, 3000);
+
+
+            setLoding(false)
+        } catch (error) {
+            console.log(error)
         }
 
-        const my_new_post = await update_post(session, postId, formdata)
-        if (!my_new_post.ok) {
-            setErrors({ message: my_new_post.msg, err: true })
-            return
-        }
-
-        setSuccess('Post Actualizado.')
-        notify('Actualizado Correctamente')
-
-
-        setTimeout(() => {
-            router.replace('/')
-        }, 3000);
-
-
-        setLoding(false)
 
 
     }

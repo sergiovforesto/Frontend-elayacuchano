@@ -69,31 +69,37 @@ export const CreatePostUI = () => {
             return
         }
 
-        const formdata = new FormData();
-        formdata.append('title', title);
-        formdata.append('description', description);
+        try {
 
-        if (images) {
-            for (let i = 0; i < images.length; i++) {
-                formdata.append('images', images[i]);
+            const formdata = new FormData();
+            formdata.append('title', title);
+            formdata.append('description', description);
+
+            if (images) {
+                for (let i = 0; i < images.length; i++) {
+                    formdata.append('images', images[i]);
+                }
             }
+
+
+
+            const posted = await publish_post(session, formdata)
+            if (!posted.ok) {
+                setErrors({ message: posted.msg, err: true })
+                return
+            }
+            setSuccess('Post Creado.')
+            notify()
+
+            setTimeout(() => {
+                router.replace('/')
+            }, 3000);
+
+            setLoding(false)
+        } catch (error) {
+            console.log(error)
         }
 
-
-
-        const posted = await publish_post(session, formdata)
-        if (!posted.ok) {
-            setErrors({ message: posted.msg, err: true })
-            return
-        }
-        setSuccess('Post Creado.')
-        notify()
-
-        setTimeout(() => {
-            router.replace('/')
-        }, 3000);
-
-        setLoding(false)
     }
 
 

@@ -52,6 +52,7 @@ export const ProfileUI = () => {
     })
 
 
+    const [loading, setLoding] = useState(false)
 
     const { id, name, lastName, email } = useSessionContext()
     const session = useAuthSession(state => state.session_user || '')
@@ -117,7 +118,7 @@ export const ProfileUI = () => {
     const createProfileUser = async () => {
 
         if (update.new_profile) {
-
+            setLoding(true)
 
             const { id, userId, ...old } = update.old_profile
 
@@ -152,39 +153,45 @@ export const ProfileUI = () => {
             }
 
             notify('Actualizado Exitosamente!✔')
-
+            setLoding(false)
             setTimeout(() => {
                 router.refresh()
             }, 2000);
-            return
 
+
+        } else {
+            setLoding(true)
+            //CREAR PROFILE
+            if (Object.values(profile).includes('')) {
+                setErrors({ message: 'Campos requeridos', err: true, fields: '' })
+                return
+            }
+
+            const formdata = new FormData()
+
+            formdata.append('bio', profile.bio)
+            formdata.append('country', profile.country)
+            formdata.append('education', profile.education)
+
+            if (profile.image) {
+                formdata.append('image-profile', profile.image[0])
+            }
+
+
+            const created_profile = await create_profile(session, formdata)
+            if (!created_profile.ok) {
+                setErrors({ message: created_profile.msg, err: true, fields: 'Error to Create Profile' })
+                return
+            }
+
+            notify('Guardado Exitosamente✅')
+            setLoding(false)
+            setTimeout(() => {
+                router.refresh()
+            }, 2000);
         }
 
 
-        //CREAR PROFILE
-        if (Object.values(profile).includes('')) {
-            setErrors({ message: 'Campos requeridos', err: true, fields: '' })
-            return
-        }
-
-        const formdata = new FormData()
-
-        formdata.append('bio', profile.bio)
-        formdata.append('country', profile.country)
-        formdata.append('education', profile.education)
-
-        if (profile.image) {
-            formdata.append('image-profile', profile.image[0])
-        }
-
-
-        const created_profile = await create_profile(session, formdata)
-        if (!created_profile.ok) {
-            setErrors({ message: created_profile.msg, err: true, fields: 'Error to Create Profile' })
-            return
-        }
-
-        notify('Guardado Exitosamente✅')
 
 
     }
@@ -328,10 +335,23 @@ export const ProfileUI = () => {
 
                 <button
                     type="button"
+                    disabled={loading}
                     onClick={createProfileUser}
-                    className='bg-indigo-600 text-white text-sm font-medium px-4 py-2 rounded w-full'
+                    className={
+                        clsx(
+                            "flex justify-center items-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded hover:bg-indigo-700 cursor-pointer w-full",
+                            { 'cursor-not-allowed space-x-2': loading }
+                        )
+                    }
                 >
+
                     {update.new_profile ? 'Actualizar Información' : 'Guardar Cambios'}
+                    <Image
+                        src={'/mini-spinner.svg'}
+                        width={20} height={20}
+                        alt='spinner'
+                        hidden={!loading}
+                    />
                 </button>
             </div>
 
