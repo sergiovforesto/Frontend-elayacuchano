@@ -123,8 +123,11 @@ export const ProfileUI = () => {
             const { id, userId, ...old } = update.old_profile
 
 
-            if (old.bio === profile.bio || old.country === profile.country || old.education === profile.country) {
+            if (profile.bio !== old.bio || profile.country !== old.country || profile.country !== old.country) {
+                console.log('Old PROFILE: ', old.bio, old.country, old.education)
+                console.log('currente o  profile: ', profile.bio, profile.country, profile.education)
                 setErrors({ message: 'No hay cambios nuevos para actualizar', err: true })
+                setLoding(false)
                 return
             }
 
@@ -132,6 +135,7 @@ export const ProfileUI = () => {
 
             if (Object.values(new_profile).includes('')) {
                 setErrors({ message: 'Campos requeridos', err: true, fields: '' })
+                setLoding(false)
                 return
             }
 
@@ -164,6 +168,7 @@ export const ProfileUI = () => {
             //CREAR PROFILE
             if (Object.values(profile).includes('')) {
                 setErrors({ message: 'Campos requeridos', err: true, fields: '' })
+                setLoding(false)
                 return
             }
 
@@ -181,6 +186,7 @@ export const ProfileUI = () => {
             const created_profile = await create_profile(session, formdata)
             if (!created_profile.ok) {
                 setErrors({ message: created_profile.msg, err: true, fields: 'Error to Create Profile' })
+                setLoding(false)
                 return
             }
 

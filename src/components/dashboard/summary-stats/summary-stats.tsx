@@ -3,6 +3,7 @@
 import { get_summary_stats } from "@/actions";
 import { useAuthSession } from "@/store/auth_session";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Summary {
     ok?: boolean,
@@ -16,7 +17,16 @@ export const SummaryStats = () => {
 
     const [summary, setSummary] = useState<Summary>()
     const session = useAuthSession(state => state.session_user)
+    const router = useRouter()
     let error = ''
+
+
+    useEffect(() => {
+        if (!session) {
+            router.replace('/')
+            return
+        }
+    }, [session])
 
     useEffect(() => {
         const getSummary = async () => {

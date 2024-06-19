@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import clsx from "clsx"
 import { ToastContainer, toast } from "react-toastify"
@@ -31,6 +31,14 @@ export const UpdatePost = ({ postId }: Props) => {
 
     const session = useAuthSession(state => state.session_user)
     const notify = (msg: string) => toast.success(msg);
+
+
+    useEffect(() => {
+        if (!session) {
+            router.replace('/')
+            return
+        }
+    }, [session])
 
 
 
