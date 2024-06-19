@@ -6,6 +6,7 @@ import { obtenerMes, formatTime } from "@/utils";
 import Link from "next/link";
 import Image from "next/image";
 import LikeCommentsButtons from "./like-comments-buttons";
+import clsx from 'clsx';
 
 
 
@@ -66,22 +67,26 @@ export const PostsList = ({
     return (
         <>
 
-            {
-                isLoading ? (
-                    <div className='flex justify-center items-center max-w-[672px] w-full'>
-                        <div className="sk-cube-grid">
-                            <div className="sk-cube sk-cube1"></div>
-                            <div className="sk-cube sk-cube2"></div>
-                            <div className="sk-cube sk-cube3"></div>
-                            <div className="sk-cube sk-cube4"></div>
-                            <div className="sk-cube sk-cube5"></div>
-                            <div className="sk-cube sk-cube6"></div>
-                            <div className="sk-cube sk-cube7"></div>
-                            <div className="sk-cube sk-cube8"></div>
-                            <div className="sk-cube sk-cube9"></div>
-                        </div>
+            {isLoading && (
+                <div className='flex justify-center items-center max-w-[672px] w-full'>
+                    <div className="sk-cube-grid">
+                        <div className="sk-cube sk-cube1"></div>
+                        <div className="sk-cube sk-cube2"></div>
+                        <div className="sk-cube sk-cube3"></div>
+                        <div className="sk-cube sk-cube4"></div>
+                        <div className="sk-cube sk-cube5"></div>
+                        <div className="sk-cube sk-cube6"></div>
+                        <div className="sk-cube sk-cube7"></div>
+                        <div className="sk-cube sk-cube8"></div>
+                        <div className="sk-cube sk-cube9"></div>
                     </div>
-                ) : posts.length > 0 ? (
+                </div>
+
+
+            )}
+
+            {
+                posts.length > 0 ? (
                     <>
                         {posts.map((post: Posts) => (
                             <article id='id-article' ref={articleRef} key={post.id} className="rounded-lg bg-white border" >
@@ -169,11 +174,18 @@ export const PostsList = ({
                         )}
                     </>
                 ) : (
-                    <div className='bg-white p-5 h-[150px] flex justify-center items-center w-full rounded-md font-medium text-xl text-gray-900'>
+                    <div className={
+                        clsx(
+                            'bg-white p-5 h-[150px] flex justify-center items-center w-full rounded-md font-medium text-xl text-gray-900',
+                            { 'hidden': isLoading }
+                        )
+                    }>
                         <h3>No hay publicaciones</h3>😥
                     </div>
                 )
             }
+
+
 
         </>
     )
