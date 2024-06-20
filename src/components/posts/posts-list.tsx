@@ -124,7 +124,16 @@ export const PostsList = ({
                                                 unoptimized
                                             />
 
-                                            <span className="bottom-0 left-7 absolute  w-2.5 h-2.5 bg-green-400 border-2 border-white rounded-full"></span>
+                                            <span
+                                                className={
+                                                    clsx(
+                                                        "bottom-0 left-7 absolute  w-2.5 h-2.5 bg-green-400 border-2 border-white rounded-full",
+                                                        { "hidden": !post.author?.inSession }
+                                                    )
+                                                }
+                                            >
+
+                                            </span>
                                         </div>
 
 

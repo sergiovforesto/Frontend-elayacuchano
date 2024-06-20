@@ -7,6 +7,7 @@ export interface Posts {
     authorId: string;
     authorName?: string;
     author?: {
+        inSession?: boolean;
         Profile?: {
             image?: string;
         }
