@@ -168,26 +168,40 @@ export const UpdatePost = ({ postId }: Props) => {
 
                 </div>
 
-                <div className=''>
+                <div>
                     <h2 className="font-bold sm:text-lg text-gray-800 mb-2">Titulo</h2>
                     <input
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="bg-gray-50 border border-gray-300 placeholder:text-3xl md:placeholder:text-4xl placeholder:font-extrabold  text-3xl md:text-4xl font-extrabold text-gray-700 rounded-lg block w-full p-2.5"
+                        className={
+                            clsx(
+                                "bg-gray-50 border border-gray-300 placeholder:text-3xl md:placeholder:text-4xl placeholder:font-extrabold  text-3xl md:text-4xl font-extrabold text-gray-700 rounded-lg block w-full p-2.5",
+                                {
+                                    'outline-rose-600 border-rose-600': errors.err
+                                }
+                            )
+                        }
                         placeholder="Nuevo titulo"
                         required
                     />
                 </div>
 
-                <div className='' >
+                <div>
                     <h2 className='font-bold sm:text-lg text-gray-800 mb-2'>Descripción</h2>
 
                     <textarea
                         rows={5}
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="block p-2.5 w-full text-sm sm:text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
+                        className={
+                            clsx(
+                                "block p-2.5 w-full text-sm sm:text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300",
+                                {
+                                    'outline-rose-600 border-rose-600': errors.err
+                                }
+                            )
+                        }
                         placeholder="Descripción del post">
 
                     </textarea>

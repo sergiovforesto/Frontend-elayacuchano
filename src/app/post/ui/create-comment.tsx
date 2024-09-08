@@ -59,7 +59,7 @@ export const FormComment = ({ postId }: Props) => {
     const onSubmitComment = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        setLoding(true)
+
 
         if (content === '') {
             setErrors({ message: 'Debes escribir un comentario', err: true, fields: '' })
@@ -71,7 +71,7 @@ export const FormComment = ({ postId }: Props) => {
             return
         }
 
-
+        setLoding(true)
         const comment = await create_comment(session, postId, content)
 
         if (!comment.ok) {

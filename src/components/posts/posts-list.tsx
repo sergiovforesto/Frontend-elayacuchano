@@ -139,7 +139,7 @@ export const PostsList = ({
 
                                         <div className="flex flex-col justify-center">
                                             <span className="text-sm font-semibold text-gray-700">{post.authorName}</span>
-                                            <span className="text-[11px] font-light">{obtenerMes(post.createdAt)}  ({formatTime(post.createdAt)})</span>
+                                            <span className="text-[11px] font-light">{obtenerMes(post.createdAt)}  {formatTime(post.createdAt)}</span>
                                         </div>
                                     </div>
 

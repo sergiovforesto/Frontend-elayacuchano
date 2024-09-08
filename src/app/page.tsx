@@ -4,7 +4,6 @@ import LatestPosts from "@/components/posts/latest-posts";
 
 export default async function Home() {
 
-
   return (
     <>
 

@@ -100,8 +100,8 @@ export default async function PostId({ params }: Props) {
 
 
                             <div className="flex flex-col justify-center">
-                                <span className="text-sm md:text-base font-semibold text-neutral-700">{author.name} {author.lastName}</span>
-                                <span className="text-[11px] md:text-xs font-light">{obtenerMes(post.createdAt)}  ({formatTime(post.createdAt)})</span>
+                                <span className="text-sm font-semibold text-neutral-700">{author.name} {author.lastName}</span>
+                                <span className="text-[11px] md:text-xs font-light">{obtenerMes(post.createdAt)}  {formatTime(post.createdAt)}</span>
                             </div>
 
 
@@ -114,12 +114,12 @@ export default async function PostId({ params }: Props) {
 
 
                         <article className="">
-                            <h1 className="font-extrabold text-2xl md:text-4xl text-neutral-900 first-letter:uppercase mb-3 md:mb-5">
+                            <h1 className="font-extrabold text-xl md:text-4xl text-neutral-900 first-letter:uppercase mb-3 md:mb-5">
                                 {post.title}
                             </h1>
 
 
-                            <p className="mt-3 text-base xl:text-lg text-justify leading-relaxed">
+                            <p className="mt-3 text-base text-justify leading-relaxed">
                                 {post.description}
                             </p>
 
@@ -140,7 +140,7 @@ export default async function PostId({ params }: Props) {
 
 
                     <div className="p-3 sm:py-8 sm:px-12">
-                        <h2 className="text-xl md:text-2xl text-neutral-900 font-bold">Comentarios ({commentCount})</h2>
+                        <h2 className="text-xl md:text-xl text-neutral-900 font-bold">Comentarios ({commentCount})</h2>
 
 
                         <FormComment postId={post.id} />
@@ -176,7 +176,7 @@ export default async function PostId({ params }: Props) {
                                                 </div>
 
                                                 <span className="text-[11px] font-light text-xs block p-2">
-                                                    {obtenerMes(comment.createdAt)}  ({formatTime(comment.createdAt)})
+                                                    {obtenerMes(comment.createdAt)}  {formatTime(comment.createdAt)}
                                                 </span>
                                             </div>
                                         </div>

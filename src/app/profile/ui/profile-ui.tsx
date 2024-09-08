@@ -30,6 +30,7 @@ export const ProfileUI = () => {
 
     })
     const [imageUser, setImageUser] = useState(null)
+    const [fileName, setFileName] = useState('');
 
     const [dataUser, setDataUser] = useState({
         name: '',
@@ -124,8 +125,7 @@ export const ProfileUI = () => {
 
 
             if (profile.bio !== old.bio || profile.country !== old.country || profile.country !== old.country) {
-                console.log('Old PROFILE: ', old.bio, old.country, old.education)
-                console.log('currente o  profile: ', profile.bio, profile.country, profile.education)
+
                 setErrors({ message: 'No hay cambios nuevos para actualizar', err: true })
                 setLoding(false)
                 return
@@ -257,7 +257,7 @@ export const ProfileUI = () => {
                                 onChange={(e) => {
 
                                     if (e.target.files) {
-                                        // Si hay un archivo, actualiza el estado del perfil con la imagen
+                                        setFileName(e.target.files[0].name);
                                         setProfile({ ...profile, image: e.target.files });
                                     }
                                 }}
@@ -266,6 +266,7 @@ export const ProfileUI = () => {
                             />
                             Seleccionar Imagen
                         </label>
+                        {fileName && <span className="text-xs md:text-sm text-blue-600">{fileName}</span>}
                     </div>
                 </div>
 
