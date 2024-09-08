@@ -21,7 +21,7 @@ export const formatTime = (fecha: Date): string => {
     // Convierte la diferencia a horas
     const horas: number = Math.floor(minutos / 60);
     if (horas < 24) {
-        return `(${horas} h${horas !== 1 ? 'h' : ''})`;
+        return `(${horas} ${horas !== 1 ? 'h' : ''})`;
     }
 
     // Convierte la diferencia a días
